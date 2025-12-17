@@ -33,9 +33,9 @@
 Now, lets ask a question based on uploaded documents. 
 
 ```bash
-summarise this story?
+summarise the test_story?
 
-who is the main character in this story?
+who is the main character in this test_story?
 ```
 
 ## Advanced Configuration

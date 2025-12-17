@@ -61,6 +61,8 @@ The default deployment exposes the server on port **8000**. Adjust the deploymen
 
 The deployment includes liveness and readiness probes pointing to `/health` on port 8000. Modify these paths if your MCP server uses different health endpoints.
 
+### How to test MCP Server Demo
+Please ensure to check the box of the MCP server you want to test it. 
 
 ## Sample Weather MCP Demo 
 
