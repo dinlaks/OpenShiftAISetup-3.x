@@ -62,5 +62,26 @@ The default deployment exposes the server on port **8000**. Adjust the deploymen
 The deployment includes liveness and readiness probes pointing to `/health` on port 8000. Modify these paths if your MCP server uses different health endpoints.
 
 
+## Sample Weather MCP Demo 
 
+Use the following prompt to test how Weather MCP works with GenAI Studio Playground. 
 
+```bash
+what is the weather in Boston? 
+```
+
+## Sample GitHub MCP Demo
+
+Use the following prompt to test how GitHub MCP works with GenAI Studio Playground. 
+
+```bash
+get me the latest commit from "https://github.com/dinlaks/OpenShiftAISetup-3.x" repo
+```
+
+## Sample Tavily MCP Demo 
+
+Use the following prompt to test how Tavily Web-Search MCP works with GenAI Studio Playground. 
+
+```bash
+summarize the latest top 5 news
+```

@@ -14,4 +14,11 @@ data:
      "url": "https://mcp.tavily.com/mcp/?tavilyApiKey=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",
      "description": "Travily MCP Server..."
    }
+ Weather-MCP-Server: |
+   {
+     "url": "https://mcp-weather-mcp-weather.apps.cluster-l8d9t.l8d9t.sandbox1342.opentlc.com/sse",
+     "transport": "sse",
+     "description": "Weather MCP Server...",
+     "label": "weather"
+   }
   
