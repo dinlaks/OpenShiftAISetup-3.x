@@ -1,0 +1,144 @@
+# NVIDIA GPU Operator ClusterPolicy Configuration
+# This file can be deployed to any OpenShift cluster with NVIDIA GPU Operator installed
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  name: gpu-cluster-policy
+spec:
+  # Container Device Interface (CDI) - disabled by default
+  cdi:
+    default: false
+    enabled: false
+  
+  # DaemonSet configuration for rolling updates
+  daemonsets:
+    rollingUpdate:
+      maxUnavailable: "1"
+    updateStrategy: RollingUpdate
+  
+  # Data Center GPU Manager (DCGM) - enables GPU monitoring
+  dcgm:
+    enabled: true
+  
+  # DCGM Exporter for Prometheus metrics
+  dcgmExporter:
+    config:
+      name: ""
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  
+  # Device Plugin for Kubernetes GPU resource management
+  devicePlugin:
+    config:
+      default: ""
+      name: ""
+    enabled: true
+    mps:
+      root: /run/nvidia/mps
+  
+  # NVIDIA Driver configuration
+  driver:
+    certConfig:
+      name: ""
+    enabled: true
+    kernelModuleConfig:
+      name: ""
+    kernelModuleType: auto
+    licensingConfig:
+      configMapName: ""
+      nlsEnabled: true
+    repoConfig:
+      configMapName: ""
+    upgradePolicy:
+      autoUpgrade: true
+      drain:
+        deleteEmptyDir: false
+        enable: false
+        force: false
+        timeoutSeconds: 300
+      maxParallelUpgrades: 1
+      maxUnavailable: 25%
+      podDeletion:
+        deleteEmptyDir: false
+        force: false
+        timeoutSeconds: 300
+      waitForCompletion:
+        timeoutSeconds: 0
+    useNvidiaDriverCRD: false
+    virtualTopology:
+      config: ""
+  
+  # GPU Direct RDMA Copy - disabled by default
+  gdrcopy:
+    enabled: false
+  
+  # GPU Direct Storage - disabled by default
+  gds:
+    enabled: false
+  
+  # GPU Feature Discovery - enables node feature discovery
+  gfd:
+    enabled: true
+  
+  # Kata Manager for container runtime support
+  kataManager:
+    config:
+      artifactsDir: /opt/nvidia-gpu-operator/artifacts/runtimeclasses
+  
+  # Multi-Instance GPU (MIG) configuration
+  mig:
+    strategy: single
+  
+  # MIG Manager for GPU partitioning
+  migManager:
+    config:
+      default: all-disabled
+      name: default-mig-parted-config
+    enabled: true
+  
+  # Node Status Exporter for GPU health monitoring
+  nodeStatusExporter:
+    enabled: true
+  
+  # Operator configuration
+  operator:
+    defaultRuntime: crio
+    initContainer: {}
+    runtimeClass: nvidia
+    use_ocp_driver_toolkit: true
+  
+  # Sandbox Device Plugin for secure containers
+  sandboxDevicePlugin:
+    enabled: true
+  
+  # Sandbox Workloads - disabled by default
+  sandboxWorkloads:
+    defaultWorkload: container
+    enabled: false
+  
+  # NVIDIA Container Toolkit
+  toolkit:
+    enabled: true
+    installDir: /usr/local/nvidia
+  
+  # Validator for GPU functionality testing
+  validator:
+    plugin:
+      env:
+      - name: WITH_WORKLOAD
+        value: "false"
+  
+  # VFIO Manager for GPU passthrough
+  vfioManager:
+    enabled: true
+  
+  # vGPU Device Manager for virtualized GPUs
+  vgpuDeviceManager:
+    config:
+      default: default
+    enabled: true
+  
+  # vGPU Manager - disabled by default
+  vgpuManager:
+    enabled: false

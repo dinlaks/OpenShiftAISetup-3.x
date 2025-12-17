@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+# Add Authorino CRDs here after operator is ready
+# Example:
+# - authconfig.yaml
+# - secret.yaml

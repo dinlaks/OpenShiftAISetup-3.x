@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: gen-ai-aa-mcp-servers
+ namespace: redhat-ods-applications
+data:
+ GitHub-MCP-Server: |
+   {
+     "url": "https://api.githubcopilot.com/mcp/x/repos/readonly",
+     "description": "GitHub MCP Server..."
+   }
+ Tavily-MCP-Server: |
+   {
+     "url": "https://mcp.tavily.com/mcp/?tavilyApiKey=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",
+     "description": "Travily MCP Server..."
+   }
+  

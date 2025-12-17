@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcp-weather
+  namespace: mcp-weather
+  labels:
+    app: mcp-weather
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcp-weather
+  template:
+    metadata:
+      labels:
+        app: mcp-weather
+    spec:
+      initContainers:
+        - name: init-npm-dirs
+          image: quay.io/hayesphilip/mcp-weather
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /tmp/.npm/_cacache /tmp/.npm/_logs
+              mkdir -p /tmp/.npm-global/lib /tmp/.npm-global/bin
+              mkdir -p /shared/.npm/_cacache /shared/.npm/_logs
+              mkdir -p /shared/.npm-global/lib /shared/.npm-global/bin
+              chmod -R 777 /tmp/.npm /tmp/.npm-global /shared/.npm /shared/.npm-global
+              echo "Init complete"
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
+            - name: shared-volume
+              mountPath: /shared
+      containers:
+        - name: mcp-weather
+          image: quay.io/hayesphilip/mcp-weather
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          env:
+            - name: NPM_CONFIG_CACHE
+              value: /tmp/.npm
+            - name: NPM_CONFIG_PREFIX
+              value: /tmp/.npm-global
+            - name: HOME
+              value: /tmp
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
+            - name: shared-volume
+              mountPath: /opt/app-root/src/.npm
+              subPath: .npm
+            - name: shared-volume
+              mountPath: /opt/app-root/src/.npm-global
+              subPath: .npm-global
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
+        - name: shared-volume
+          emptyDir: {}

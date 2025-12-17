@@ -1,0 +1,81 @@
+# OpenShift AI (RHOAI) DataScienceCluster Configuration
+# This file can be deployed to any OpenShift cluster with RHOAI operator installed
+apiVersion: datasciencecluster.opendatahub.io/v1
+kind: DataScienceCluster
+metadata:
+  name: default-dsc
+  labels:
+    app.kubernetes.io/created-by: rhods-operator
+    app.kubernetes.io/instance: default-dsc
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: datasciencecluster
+    app.kubernetes.io/part-of: rhods-operator
+spec:
+  components:
+    # CodeFlare - Multi-cluster resource management for ML workloads
+    #codeflare:
+      #managementState: Managed
+    
+    # Dashboard - Web-based user interface for OpenShift AI
+    dashboard:
+      managementState: Managed
+    
+    # Data Science Pipelines - ML pipeline orchestration
+    aipipelines:
+      argoWorkflowsControllers:
+        managementState: Managed
+      managementState: Managed
+    
+    # Feast Operator - Feature store for ML features
+    feastoperator:
+      managementState: Managed
+    
+    # KServe - Model serving platform
+    kserve:
+      managementState: Managed
+      # NVIDIA Inference Microservice (NIM) for optimized inference
+      nim:
+        managementState: Managed
+      # Raw deployment service configuration
+      rawDeploymentServiceConfig: Headless
+      # Serving configuration with Knative
+    
+    # Kueue - Job queue management for ML workloads
+    kueue:
+      defaultClusterQueueName: default
+      defaultLocalQueueName: default
+      managementState: Removed
+
+    # LlamaStack Operator - Llama model serving
+    llamastackoperator:
+      managementState: Managed
+    
+    # ModelMesh Serving - High-performance model serving
+    modelmeshserving:
+      managementState: Managed
+    
+    # Model Registry - Centralized model storage and management
+    modelregistry:
+      managementState: Managed
+      registriesNamespace: rhoai-model-registries
+    
+    # Ray - Distributed computing framework for ML
+    ray:
+      managementState: Managed
+    
+    # Training Operator - Kubernetes native ML training
+    trainingoperator:
+      managementState: Managed
+    
+    # TrustyAI - AI explainability and bias detection
+    trustyai:
+      eval:
+        lmeval:
+          permitCodeExecution: deny
+          permitOnline: deny
+      managementState: Managed
+    
+    # Workbenches - Jupyter notebook environments
+    workbenches:
+      managementState: Managed
+      workbenchNamespace: rhods-notebooks

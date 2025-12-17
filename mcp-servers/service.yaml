@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcp-weather
+  namespace: mcp-weather
+  labels:
+    app: mcp-weather
+spec:
+  selector:
+    app: mcp-weather
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  type: ClusterIP
+
+
+
+

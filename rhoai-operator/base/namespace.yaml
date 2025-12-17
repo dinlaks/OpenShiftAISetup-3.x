@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: redhat-ods-operator
+  labels:
+    name: redhat-ods-operator
+    openshift.io/cluster-monitoring: "true"
