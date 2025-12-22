@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod-2
+  namespace: test-efs-rwx
+spec:
+  containers:
+  - name: app
+    image: registry.access.redhat.com/ubi8/ubi-minimal:latest
+    command: ["/bin/sh", "-c"]
+    args:
+    - |
+      sleep 5
+      echo ""
+      echo "========================================"
+      echo "Pod 2 - Reading Shared EFS Storage"
+      echo "========================================"
+      echo ""
+      echo "Files created by Pod 1:"
+      ls -lh /data/
+      echo ""
+      echo "Content of test.txt from Pod 1:"
+      cat /data/test.txt
+      echo ""
+      echo "========================================"
+      echo "Pod 2 - Writing to Shared Storage"
+      echo "========================================"
+      echo ""
+      echo "✅ Pod 2 successfully accessed shared storage at \$(date)" | tee -a /data/test.txt
+      echo ""
+      echo "Updated content:"
+      cat /data/test.txt
+      echo ""
+      echo "Pod running... (keeping alive for 1 hour)"
+      sleep 3600
+    volumeMounts:
+    - name: storage
+      mountPath: /data
+  volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: test-storage-1
