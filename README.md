@@ -42,7 +42,7 @@ To install OpenShift with GPU nodes, use the below options by ordering [AWS with
 ### **1. Clone and Navigate**
 ```bash
 git clone https://github.com/dinlaks/OpenShiftAISetup-3.x.git
-cd OpenShiftAISetup
+cd OpenShiftAISetup-3.x
 ```
 
 ### **2. Verify Prerequisites**
