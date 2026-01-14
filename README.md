@@ -241,7 +241,7 @@ oc get nodes -o json | jq '.items[].status.allocatable | select(."nvidia.com/gpu
 For deploying first model please refer to [deploying a model on Red Hat OpenShift AI 3.0](deploy-model.md)
 
 ## ** Configuring MCP Servers**
-To configure MCP servers please refer to [configure MCP servers](mcp-servers/)
+To configure MCP servers please refer to [configure MCP servers](genai-studio/mcp-servers/)
 
 ## **Next Steps**
 
