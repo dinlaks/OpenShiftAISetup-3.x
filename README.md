@@ -17,6 +17,16 @@ This directory contains the GitOps configuration for deploying OpenShift AI oper
 - **Sufficient resources** for operator pods and workloads
 - **Storage** for model storage and data persistence
 
+### Install OpenShift Environment
+
+To install OpenShift with GPU nodes, use the Red Hat Demo Platform Environment
+
+- **[AWS with OpenShift Open Environment]**(https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.sandbox-ocp.prod&utm_source=webapp&utm_medium=share-link)
+- Select **OpenShift 4.20.x clusters**
+- Select **m6a.4xlarge** 
+
+
+
 ### **GPU Spot Instance Price Script**
 - Once OCP cluster and AI is installed, we can use this **scripts/gpu-config.sh** to find the best price and helps to create a machine
 
