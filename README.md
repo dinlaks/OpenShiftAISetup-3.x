@@ -19,14 +19,12 @@ This directory contains the GitOps configuration for deploying OpenShift AI oper
 
 ### Install OpenShift Environment
 
-To install OpenShift with GPU nodes, use the Red Hat Demo Platform Environment
+To install OpenShift with GPU nodes, use the below options by ordering [AWS with OpenShift Open Environment](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.sandbox-ocp.prod&utm_source=webapp&utm_medium=share-link) from Red Hat Demo Platform Environment. 
 
-- [AWS with OpenShift Open Environment](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.sandbox-ocp.prod&utm_source=webapp&utm_medium=share-link)
-- Select **Region us-east-2**
-- Select **OpenShift 4.20.x clusters**
-- Select **ControlPlane Count 1**
-- Select **m6a.4xlarge** 
-
+-  **Region us-east-2**
+-  **OpenShift 4.20.x clusters**
+-  **ControlPlane Count 1**
+-  **m6a.4xlarge** 
 
 
 ### **GPU Spot Instance Price Script**
