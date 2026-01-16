@@ -2,6 +2,10 @@
 
 This directory contains Kubernetes/OpenShift manifests to deploy the MCP Weather Server.
 
+> **Pre-requisite:**  
+> To use the MCP Weather server via GenAI Studio, you must first deploy the required model by following the instructions in [deploy-model.md](/deploy-model.md).
+
+
 ## Image
 
 - **Image**: `quay.io/hayesphilip/mcp-weather`
