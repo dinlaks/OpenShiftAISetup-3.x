@@ -10,6 +10,8 @@
 
 ## Prerequisites
 
+> To use the MCP Weather server via GenAI Studio, you must first deploy the required model by following the instructions in [deploy-model.md](/deploy-model.md).
+
 - Configured playground instance for your project
 - Llama Stack Operator enabled (set `managementState: Managed` in DataScienceCluster CR)
 - Supported file formats: PDF, DOC, CSV
