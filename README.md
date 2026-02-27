@@ -123,6 +123,8 @@ oc apply -k rhoai-operator/overlays/crds/
 ## **Enable UserWorload Monitoring**
 
 ```bash
+# Enable UserWorkload Monitoring by applying a ConfigMap
+cat <<EOF | oc apply -f -
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -133,11 +135,19 @@ data:
     enableUserWorkload: true
     alertmanagerMain:
       enableUserAlertmanagerConfig: true
+EOF
 ```
 
 ## **Update ODH Dashboard if necessary**
 
 ```bash
+# View the existing OdhDashboardConfig resource:
+oc get OdhDashboardConfig odh-dashboard-config -n redhat-ods-applications -o yaml
+
+# To edit the resource in place, run:
+oc edit OdhDashboardConfig odh-dashboard-config -n redhat-ods-applications
+
+---
 apiVersion: opendatahub.io/v1alpha
 kind: OdhDashboardConfig
 metadata:
@@ -161,6 +171,7 @@ spec:
 ## **Add a Hardware Profile for GPU**
 
 ```bash
+cat <<EOF | oc apply -f -
 apiVersion: infrastructure.opendatahub.io/v1alpha1
 kind: HardwareProfile
 metadata:
@@ -186,6 +197,7 @@ spec:
      minCount: 1
      maxCount: 4
      defaultCount: 1
+EOF
 ```
 
 ## **Verification**

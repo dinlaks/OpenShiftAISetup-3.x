@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: openshift-operators
+  name: kuadrant-system
   labels:
-    name: openshift-operators
+    name: kuadrant-system
     openshift.io/cluster-monitoring: "true"

@@ -2,9 +2,9 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: rhcl-operator
-  namespace: openshift-operators
+  namespace: kuadrant-system
   labels:
-    operators.coreos.com/rhcl-operator.openshift-operators: ""
+    operators.coreos.com/rhcl-operator.kuadrant-system: ""
 spec:
   channel: stable
   installPlanApproval: Automatic

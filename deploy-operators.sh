@@ -109,25 +109,25 @@ echo "   Waiting for OpenShift Serverless Operator to be ready..."
 wait_for_csv_by_label "operators.coreos.com/serverless-operator.openshift-serverless" "openshift-serverless" 300
 oc wait --for=jsonpath='{.status.phase}'=Succeeded csv -l operators.coreos.com/serverless-operator.openshift-serverless -n openshift-serverless --timeout=300s
 
-#echo "4. Deploying OpenShift ServiceMesh Operator..."
-#oc apply -k servicemesh-operator/base/
-#echo "   Waiting for OpenShift ServiceMesh Operator to be ready..."
-#wait_for_csv_by_label "operators.coreos.com/servicemeshoperator.openshift-operators" "openshift-operators" 300
-#oc wait --for=jsonpath='{.status.phase}'=Succeeded csv -l operators.coreos.com/servicemeshoperator.openshift-operators -n openshift-operators --timeout=300s
+echo "4. Deploying OpenShift ServiceMesh Operator..."
+oc apply -k servicemesh-operator/base/
+echo "   Waiting for OpenShift ServiceMesh Operator to be ready..."
+wait_for_csv_by_label "operators.coreos.com/servicemeshoperator3.openshift-operators" "openshift-operators" 300
+oc wait --for=jsonpath='{.status.phase}'=Succeeded csv -l operators.coreos.com/servicemeshoperator3.openshift-operators -n openshift-operators --timeout=300s
 
-echo "4. Deploying OpenShift Pipelines Operator..."
-oc apply -k pipelines-operator/base/
+echo "5. Deploying OpenShift Pipelines Operator..."
+oc apply -k pipelines-operator/
 echo "   Waiting for OpenShift Pipelines Operator to be ready..."
 wait_for_csv_by_label "operators.coreos.com/openshift-pipelines-operator-rh.openshift-operators" "openshift-operators" 300
 oc wait --for=jsonpath='{.status.phase}'=Succeeded csv -l operators.coreos.com/openshift-pipelines-operator-rh.openshift-operators -n openshift-operators --timeout=300s
 
-echo "5. Deploying Authorino Operator..."
+echo "6. Deploying Authorino Operator..."
 oc apply -k authorino-operator/base/
 echo "   Waiting for Authorino Operator to be ready..."
 wait_for_csv_by_label "operators.coreos.com/authorino-operator.openshift-operators" "openshift-operators" 300
 oc wait --for=jsonpath='{.status.phase}'=Succeeded csv -l operators.coreos.com/authorino-operator.openshift-operators -n openshift-operators --timeout=300s
 
-echo "6. Deploying Cert-Manager Operator..."
+echo "7. Deploying Cert-Manager Operator..."
 oc apply -k cert-manager-operator/base/
 echo "   Waiting for Cert-Manager Operator to be ready..."
 wait_for_csv_by_label "operators.coreos.com/openshift-cert-manager-operator.cert-manager-operator" "cert-manager-operator" 300
@@ -138,23 +138,24 @@ oc apply -k cert-manager-operator/overlays/crds/
 echo "   Waiting for Cert-Manager cluster to be ready..."
 wait_for_resource_ready "cluster" "cert-manager-operator" "{.status.state}" "ready" 300
 
-echo "7. Deploying LeaderWorkerSet Operator..."
+<<COMMENT
+echo "8. Deploying LeaderWorkerSet Operator..."
 oc apply -k lws-operator/base/
 echo "   Waiting for LeaderWorkerSet Operator to be ready..."
 wait_for_csv_by_label "operators.coreos.com/leader-worker-set.openshift-lws-operator" "openshift-lws-operators" 300
 oc wait --for=jsonpath='{.status.phase}'=Succeeded csv -l operators.coreos.com/leader-worker-set.openshift-lws-operator -n openshift-lws-operators --timeout=300s
 
-echo "8. Deploying RHCL Operator..."
-oc apply -k leaderworkerset-operator/base/
+echo "9. Deploying RHCL Operator..."
+oc apply -k leaderworkerset-operator/
 echo "   Waiting for LeaderWorkerSet Operator to be ready..."
 wait_for_csv_by_label "operators.coreos.com/rhcl-operator.openshift-operators" "openshift-operators" 300
 oc wait --for=jsonpath='{.status.phase}'=Succeeded csv -l operators.coreos.com/rhcl-operator.openshift-operators -n openshift-operators --timeout=300s
-
+COMMENT
 
 # Phase 3: AI Platform Operator (depends on all previous)
 echo "--- Phase 3: Deploying AI Platform Operator ---"
 
-echo "9. Deploying RHOAI Operator..."
+echo "10. Deploying RHOAI Operator..."
 oc apply -k rhoai-operator/base/
 echo "   Waiting for RHOAI Operator to be ready..."
 wait_for_csv_by_label "operators.coreos.com/rhods-operator.redhat-ods-operator" "redhat-ods-operator" 300

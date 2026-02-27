@@ -1,0 +1,90 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  annotations:
+    capacity.cluster-autoscaler.kubernetes.io/labels: kubernetes.io/arch=amd64
+    machine.openshift.io/GPU: "0"
+    machine.openshift.io/memoryMb: "65536"
+    machine.openshift.io/vCPU: "16"
+  generation: 1
+  labels:
+    machine.openshift.io/cluster-api-cluster: cluster-vpf92-8qvz7
+  name: cluster-vpf92-8qvz7-worker-us-east-2c-gpu-a10g
+  namespace: openshift-machine-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: cluster-vpf92-8qvz7
+      machine.openshift.io/cluster-api-machineset: cluster-vpf92-8qvz7-worker-us-east-2c-gpu-a10g
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: cluster-vpf92-8qvz7
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: cluster-vpf92-8qvz7-worker-us-east-2c-gpu-a10g
+        machine.openshift.io/capacity-type: spot
+      annotations:
+        machine.openshift.io/spot-max-price: ""
+    spec:
+      lifecycleHooks: {}
+      metadata: {}
+      providerSpec:
+        value:
+          ami:
+            id: ami-0fd7c367ed8a90d52
+          apiVersion: machine.openshift.io/v1beta1
+          blockDevices:
+            - ebs:
+                encrypted: true
+                iops: 0
+                kmsKey:
+                  arn: ""
+                volumeSize: 500
+                volumeType: gp2
+          capacityReservationId: ""
+          credentialsSecret:
+            name: aws-cloud-credentials
+          deviceIndex: 0
+          iamInstanceProfile:
+            id: cluster-vpf92-8qvz7-worker-profile
+          instanceType: g5.xlarge
+          kind: AWSMachineProviderConfig
+          metadata:
+            creationTimestamp: null
+          metadataServiceOptions: {}
+          placement:
+            availabilityZone: us-east-2c
+            region: us-east-2
+          securityGroups:
+            - filters:
+                - name: tag:Name
+                  values:
+                    - cluster-vpf92-8qvz7-node
+            - filters:
+                - name: tag:Name
+                  values:
+                    - cluster-vpf92-8qvz7-lb
+          subnet:
+            filters:
+              - name: tag:Name
+                values:
+                  - cluster-vpf92-8qvz7-subnet-private-us-east-2c
+          tags:
+            - name: kubernetes.io/cluster/cluster-vpf92-8qvz7
+              value: owned
+            - name: Stack
+              value: project ocp4-cluster-vpf92
+            - name: env_type
+              value: ocp4-cluster
+            - name: guid
+              value: vpf92
+            - name: owner
+              value: unknown
+            - name: platform
+              value: RHPDS
+            - name: uuid
+              value: 820dfca6-3d77-544d-9816-1d542ee71e0f
+          userDataSecret:
+            name: worker-user-data
